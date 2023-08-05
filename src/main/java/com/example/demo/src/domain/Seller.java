@@ -1,5 +1,7 @@
 package com.example.demo.src.domain;
 
+import com.example.demo.src.domain.user.model.User;
+
 public class Seller extends User {
 
     private static Long idSeq = 0L;

@@ -1,7 +1,6 @@
 package com.example.demo.src.repository;
 
 import com.example.demo.src.domain.Post;
-import com.example.demo.src.domain.User;
 
 import java.util.List;
 

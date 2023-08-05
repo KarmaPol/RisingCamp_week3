@@ -1,4 +1,6 @@
 package com.example.demo.src.repository;
 
-public interface SellerRepository extends UserRepository{
+import com.example.demo.src.domain.user.UserRepository;
+
+public interface SellerRepository extends UserRepository {
 }

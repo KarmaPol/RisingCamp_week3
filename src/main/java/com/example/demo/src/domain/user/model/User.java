@@ -1,23 +1,30 @@
-package com.example.demo.src.domain;
+package com.example.demo.src.domain.user.model;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Getter
+@Entity
 public class User {
 
-    private static Long idSeq = 0L;
-
+    @Id @GeneratedValue
     private Long userId;
-    @NotBlank
+    @NotNull @Column
     private String name;
-    @NotBlank
+    @NotNull @Column
     private String password;
+    @Column
     private String phoneNumber;
+    @Column
     private String address;
 
     @Builder
@@ -28,9 +35,10 @@ public class User {
         this.address = address;
     }
 
-    public Long addUserId(){
-        userId = idSeq;
-        idSeq++;
-        return userId;
+    public void changeUser(User user){
+        this.name = user.getName();
+        this.password = user.getPassword();
+        this.phoneNumber = user.getPhoneNumber();
+        this.address = user.getAddress();
     }
 }
