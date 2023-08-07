@@ -1,9 +1,7 @@
-package com.example.demo.src.controller;
+package com.example.demo.src.domain.order;
 
-import com.example.demo.src.domain.Order;
-import com.example.demo.src.service.OrderService;
+import com.example.demo.src.domain.order.model.Order;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

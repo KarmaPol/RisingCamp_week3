@@ -1,7 +1,7 @@
 package com.example.demo.src.domain.user;
 
 import com.example.demo.src.domain.user.model.User;
-import com.example.demo.src.exception.UserException;
+import com.example.demo.src.exception.ResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,18 +31,18 @@ public class UserService {
 
     // 회원 정보 조회
     public User getUser(Long userID){
-        return userRepository.findById(userID).orElseThrow(() -> new UserException("존재하지 않는 회원입니다."));
+        return userRepository.findById(userID).orElseThrow(() -> new ResourceException());
     }
 
     // 회원 정보 수정
     public void patchUser(Long userID, User user){
-        User findUser = userRepository.findById(userID).orElseThrow(() -> new UserException("존재하지 않는 회원입니다."));
+        User findUser = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
         findUser.changeUser(user);
     }
 
     // 회원 탈퇴
     public void deleteUser(Long userID){
-        User findUser = userRepository.findById(userID).orElseThrow(() -> new UserException("존재하지 않는 회원입니다."));
+        User findUser = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
         userRepository.delete(findUser);
     }
 }

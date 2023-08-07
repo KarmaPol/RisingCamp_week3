@@ -1,4 +1,4 @@
-package com.example.demo.src.domain;
+package com.example.demo.src.domain.order.model;
 
 import lombok.Builder;
 
@@ -34,5 +34,16 @@ public class Order {
         this.deliveryAddress = deliveryAddress;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public void changeOrder(Order orderEdit){
+         this.payment = orderEdit.payment;
+         this.deliveryAddress = deliveryAddress;
+         this.price = price;
+         this.quantity = quantity;
+    }
+
+    public int getTotalPrice(){
+        return price*quantity;
     }
 }

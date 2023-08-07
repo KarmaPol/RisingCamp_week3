@@ -1,7 +1,7 @@
-package com.example.demo.src.controller;
+package com.example.demo.src.domain.post;
 
-import com.example.demo.src.domain.Post;
-import com.example.demo.src.service.PostService;
+import com.example.demo.src.domain.post.model.Post;
+import com.example.demo.src.domain.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
