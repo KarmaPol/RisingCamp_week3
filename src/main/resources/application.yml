@@ -6,8 +6,16 @@ spring:
     name: demo
 
   datasource:
-    url: jdbc:mysql://localhost:3306/demo # 변경해주세요
-    username: root # username
-    password: 0991 # password
-    driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8버전
+    url: jdbc:h2:mem:demo # 변경해주세요
+    username: sa # username
+    password:  # password # mysql 8버전
     # driver-class-name: com.mysql.jdbc.Driver # mysql 5버전
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect

@@ -4,13 +4,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
 
 @Getter
+@Entity
 @NoArgsConstructor
 public class Post {
-    private static Long idSeq = 0L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
     @NotBlank
     private String title;
@@ -19,12 +25,6 @@ public class Post {
     private String itemId;
     private Integer price;
     private Integer quantity;
-
-    public Long addPostId(){
-        postId = idSeq;
-        idSeq++;
-        return postId;
-    }
 
     @Builder
     public Post(String title, String content, String itemId, Integer quantity, Integer price) {

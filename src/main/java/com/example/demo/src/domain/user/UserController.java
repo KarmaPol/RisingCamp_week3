@@ -1,7 +1,9 @@
 package com.example.demo.src.domain.user;
 
 import com.example.demo.src.domain.Seller;
-import com.example.demo.src.domain.user.model.User;
+import com.example.demo.src.domain.user.req.SignupReq;
+import com.example.demo.src.domain.user.req.UserEditReq;
+import com.example.demo.src.domain.user.resp.UserResp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,18 +18,13 @@ public class UserController {
 
     // 일반 회원 가입
     @PostMapping("/users")
-    public void register(@Valid @RequestBody User user){
-        userService.register(user);
-    }
-
-    // 판매자 회원 가입
-    @PostMapping("/users/seller")
-    public void sellerRegister(@RequestBody Seller seller){
+    public void register(@Valid @RequestBody SignupReq signupReq){
+        userService.register(signupReq);
     }
 
     // 전체 회원 조회
     @GetMapping("/users")
-    public List<User> members(){
+    public List<UserResp> members(){
         return userService.getList();
     }
 
@@ -39,14 +36,14 @@ public class UserController {
 
     // 회원 정보 조회
     @GetMapping("/users/{userID}")
-    public User getUserInfo(@PathVariable Long userID){
+    public UserResp getUserInfo(@PathVariable Long userID){
         return userService.getUser(userID);
     }
 
     // 회원 정보 수정
     @PatchMapping("/users/{userID}")
-    public void patchUserID(@PathVariable Long userID, @RequestBody User user){
-        userService.patchUser(userID, user);
+    public void patchUserID(@PathVariable Long userID, @RequestBody UserEditReq userEditReq){
+        userService.patchUser(userID, userEditReq);
     }
 
     // 회원 탈퇴

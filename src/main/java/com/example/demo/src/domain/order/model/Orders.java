@@ -1,11 +1,19 @@
 package com.example.demo.src.domain.order.model;
 
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-public class Order {
-    private static Long idSeq = 0L;
+@NoArgsConstructor
+@Entity
+public class Orders {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
     @NotBlank
     private String postId;
@@ -20,14 +28,8 @@ public class Order {
     @NotBlank
     private Integer quantity;
 
-    public Long addOrderId(){
-        orderId = idSeq;
-        idSeq++;
-        return orderId;
-    }
-
     @Builder
-    public Order(String postId, Long customerId, String payment, String deliveryAddress, Integer price, Integer quantity) {
+    public Orders(String postId, Long customerId, String payment, String deliveryAddress, Integer price, Integer quantity) {
         this.postId = postId;
         this.customerId = customerId;
         this.payment = payment;
@@ -36,8 +38,8 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public void changeOrder(Order orderEdit){
-         this.payment = orderEdit.payment;
+    public void changeOrder(Orders ordersEdit){
+         this.payment = ordersEdit.payment;
          this.deliveryAddress = deliveryAddress;
          this.price = price;
          this.quantity = quantity;

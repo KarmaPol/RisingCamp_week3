@@ -1,27 +1,45 @@
 package com.example.demo.src.domain.user;
 
-import com.example.demo.src.domain.user.model.User;
+import com.example.demo.src.domain.user.model.Users;
+import com.example.demo.src.domain.user.req.SignupReq;
+import com.example.demo.src.domain.user.req.UserEditReq;
+import com.example.demo.src.domain.user.resp.UserResp;
 import com.example.demo.src.exception.ResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
 
     // 일반 회원가입
-    public void register(User user){
-        userRepository.save(user);
+    public void register(SignupReq signupReq){
+
+        Users signupUsers = Users.builder().phoneNumber(signupReq.getPhoneNumber())
+                .address(signupReq.getAddress())
+                .name(signupReq.getName())
+                .password(signupReq.getPassword()).build();
+
+        userRepository.save(signupUsers);
     }
 
     // 전체 회원 조회
-    public List<User> getList(){
-        return userRepository.findAll();
+    public List<UserResp> getList(){
+        List<Users> usersList = userRepository.findAll();
+
+        List<UserResp> userRespList = usersList.stream().map(user -> {
+                    return UserResp.builder().name(user.getName()).address(user.getAddress()).phoneNumber(user.getPhoneNumber()).build();
+                })
+                .collect(Collectors.toList());
+
+        return userRespList;
     }
 
     // 회원 이름 중복검사
@@ -30,19 +48,20 @@ public class UserService {
     }
 
     // 회원 정보 조회
-    public User getUser(Long userID){
-        return userRepository.findById(userID).orElseThrow(() -> new ResourceException());
+    public UserResp getUser(Long userID){
+        Users findUsers = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
+        return UserResp.builder().name(findUsers.getName()).address(findUsers.getAddress()).phoneNumber(findUsers.getPhoneNumber()).build();
     }
 
     // 회원 정보 수정
-    public void patchUser(Long userID, User user){
-        User findUser = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
-        findUser.changeUser(user);
+    public void patchUser(Long userID, UserEditReq userEditReq){
+        Users findUsers = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
+        findUsers.changeUser(userEditReq);
     }
 
     // 회원 탈퇴
     public void deleteUser(Long userID){
-        User findUser = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
-        userRepository.delete(findUser);
+        Users findUsers = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
+        userRepository.delete(findUsers);
     }
 }

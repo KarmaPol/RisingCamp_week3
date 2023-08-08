@@ -1,12 +1,11 @@
 package com.example.demo.src.domain.order;
 
-import com.example.demo.src.domain.order.model.Order;
+import com.example.demo.src.domain.order.model.Orders;
 import com.example.demo.src.exception.ResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,16 +18,16 @@ public class OrderService {
         orderRepository.findById(orderID);
     }
 
-    public List<Order> getList(){
+    public List<Orders> getList(){
         return orderRepository.findAll();
     }
 
-    public void addOrder(Order order) {
-        orderRepository.save(order);
+    public void addOrder(Orders orders) {
+        orderRepository.save(orders);
     }
 
-    public void patchOrder(Long orderID, Order orderEdit) {
-        Order findOrder = orderRepository.findById(orderID).orElseThrow(() -> new ResourceException());
-        findOrder.changeOrder(orderEdit);
+    public void patchOrder(Long orderID, Orders ordersEdit) {
+        Orders findOrders = orderRepository.findById(orderID).orElseThrow(() -> new ResourceException());
+        findOrders.changeOrder(ordersEdit);
     }
 }
