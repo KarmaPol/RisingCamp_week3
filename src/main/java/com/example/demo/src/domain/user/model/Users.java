@@ -1,12 +1,16 @@
 package com.example.demo.src.domain.user.model;
 
+import com.example.demo.src.domain.order.model.Orders;
 import com.example.demo.src.domain.user.req.UserEditReq;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -23,6 +27,10 @@ public class Users {
     private String phoneNumber;
     @Column
     private String address;
+
+    @BatchSize(size = 100)
+    @OneToMany(mappedBy = "user")
+    private List<Orders> order = new ArrayList<>();
 
     @Builder
     public Users(String name, String password, String phoneNumber, String address) {

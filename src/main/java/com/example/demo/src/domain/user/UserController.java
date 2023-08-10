@@ -1,6 +1,5 @@
 package com.example.demo.src.domain.user;
 
-import com.example.demo.src.domain.Seller;
 import com.example.demo.src.domain.user.req.SignupReq;
 import com.example.demo.src.domain.user.req.UserEditReq;
 import com.example.demo.src.domain.user.resp.UserResp;
@@ -19,6 +18,7 @@ public class UserController {
     // 일반 회원 가입
     @PostMapping("/users")
     public void register(@Valid @RequestBody SignupReq signupReq){
+        signupReq.validateName();
         userService.register(signupReq);
     }
 

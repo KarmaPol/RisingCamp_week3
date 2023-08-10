@@ -1,4 +1,4 @@
-package com.example.demo.src.exception;
+package com.example.demo.src.exception.model;
 
 public class ResourceException extends CustomException{
 

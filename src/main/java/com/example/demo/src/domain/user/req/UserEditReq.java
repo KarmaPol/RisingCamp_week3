@@ -2,10 +2,12 @@ package com.example.demo.src.domain.user.req;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 @Getter
+@NoArgsConstructor
 public class UserEditReq {
     @NotNull
     private String name;

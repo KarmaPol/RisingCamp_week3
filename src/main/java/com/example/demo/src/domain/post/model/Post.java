@@ -1,15 +1,18 @@
 package com.example.demo.src.domain.post.model;
 
+import com.example.demo.src.domain.order.model.Orders;
+import com.example.demo.src.domain.post.req.PostReq;
+import com.example.demo.src.domain.user.model.Users;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -26,6 +29,14 @@ public class Post {
     private Integer price;
     private Integer quantity;
 
+    @BatchSize(size = 100)
+    @OneToMany(mappedBy = "post")
+    private List<Orders> order = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
+
     @Builder
     public Post(String title, String content, String itemId, Integer quantity, Integer price) {
         this.title = title;
@@ -35,11 +46,15 @@ public class Post {
         this.price = price;
     }
 
-    public void changePost(Post postEdit){
+    public void changePost(PostReq postEdit){
         this.title = postEdit.getTitle();
         this.content = postEdit.getContent();
         this.itemId = postEdit.getItemId();
         this.quantity = postEdit.getQuantity();
         this.price = postEdit.getPrice();
+    }
+
+    public void setUser(Users user){
+        this.user = user;
     }
 }

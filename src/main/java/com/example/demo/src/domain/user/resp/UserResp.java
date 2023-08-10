@@ -2,8 +2,10 @@ package com.example.demo.src.domain.user.resp;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class UserResp {
     private String name;
     private String phoneNumber;

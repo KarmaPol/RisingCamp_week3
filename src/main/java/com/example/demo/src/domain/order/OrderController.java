@@ -1,6 +1,8 @@
 package com.example.demo.src.domain.order;
 
 import com.example.demo.src.domain.order.model.Orders;
+import com.example.demo.src.domain.order.req.OrderReq;
+import com.example.demo.src.domain.order.resp.OrderResp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,25 +17,25 @@ public class OrderController {
 
     // 특정 주문 조회
     @GetMapping("/orders/{orderID}")
-    public void getOrder(@PathVariable Long orderID){
-        orderService.get(orderID);
+    public OrderResp getOrder(@PathVariable Long orderID){
+        return orderService.get(orderID);
     }
 
     // 전체 주문 조회
     @GetMapping("/orders")
-    public List<Orders> getOrders() {
+    public List<OrderResp> getOrders() {
         return orderService.getList();
     }
 
     // 상품 주문
     @PostMapping("/orders")
-    public void order(@RequestBody Orders orders){
-        orderService.addOrder(orders);
+    public void order(@RequestBody OrderReq orderReq){
+        orderService.addOrder(orderReq);
     }
 
     // 주문 수정
     @PatchMapping("/orders/{orderID}")
-    public void patch(@RequestParam Long orderID, @Valid @RequestBody Orders orders){
-        orderService.patchOrder(orderID, orders);
+    public void patch(@RequestParam Long orderID, @Valid @RequestBody OrderReq orderReq){
+        orderService.patchOrder(orderID, orderReq);
     }
 }

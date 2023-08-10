@@ -1,12 +1,17 @@
 package com.example.demo.src.domain.user.req;
 
+import com.example.demo.src.exception.model.FormException;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
+import static com.example.demo.utils.ValidationRegex.isRegexEmail;
+
 @Getter
+@NoArgsConstructor
 public class SignupReq {
     @NotNull
     private String name;
@@ -21,5 +26,9 @@ public class SignupReq {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.address = address;
+    }
+
+    public void validateName(){
+        if(!isRegexEmail(name)) throw new FormException();
     }
 }

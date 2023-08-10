@@ -4,7 +4,7 @@ import com.example.demo.src.domain.user.model.Users;
 import com.example.demo.src.domain.user.req.SignupReq;
 import com.example.demo.src.domain.user.req.UserEditReq;
 import com.example.demo.src.domain.user.resp.UserResp;
-import com.example.demo.src.exception.ResourceException;
+import com.example.demo.src.exception.model.ResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +30,7 @@ public class UserService {
         userRepository.save(signupUsers);
     }
 
+    @Transactional(readOnly = true)
     // 전체 회원 조회
     public List<UserResp> getList(){
         List<Users> usersList = userRepository.findAll();
@@ -42,11 +43,13 @@ public class UserService {
         return userRespList;
     }
 
+    @Transactional(readOnly = true)
     // 회원 이름 중복검사
     public boolean duplicateValidation(String userName){
         return userRepository.countUserByName(userName) <= 0;
     }
 
+    @Transactional(readOnly = true)
     // 회원 정보 조회
     public UserResp getUser(Long userID){
         Users findUsers = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
