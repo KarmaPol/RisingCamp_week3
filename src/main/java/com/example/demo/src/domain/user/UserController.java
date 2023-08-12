@@ -3,6 +3,7 @@ package com.example.demo.src.domain.user;
 import com.example.demo.src.domain.user.req.SignupReq;
 import com.example.demo.src.domain.user.req.UserEditReq;
 import com.example.demo.src.domain.user.resp.UserResp;
+import com.example.demo.src.exception.model.FormException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class UserController {
     // 일반 회원 가입
     @PostMapping("/users")
     public void register(@Valid @RequestBody SignupReq signupReq){
-        signupReq.validateName();
+        if(!signupReq.validateName()) throw new FormException();
         userService.register(signupReq);
     }
 

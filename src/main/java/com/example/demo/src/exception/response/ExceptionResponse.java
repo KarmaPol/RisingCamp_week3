@@ -1,9 +1,11 @@
 package com.example.demo.src.exception.response;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.Map;
 
+@Getter
 public class ExceptionResponse {
     private final String message;
     private final Integer code;

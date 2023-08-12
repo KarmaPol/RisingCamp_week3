@@ -1,10 +1,11 @@
 package com.example.demo.src.domain.post;
 
-import com.example.demo.src.domain.post.model.Post;
-import com.example.demo.src.domain.post.PostService;
 import com.example.demo.src.domain.post.req.PostReq;
 import com.example.demo.src.domain.post.resp.PostResp;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,9 +17,9 @@ public class PostController {
 
     private final PostService postService;
 
-    // 전체 상품게시글 조회
+    // 상품게시글 조회
     @GetMapping("/posts")
-    public List<PostResp> postlist(){
+    public List<PostResp> postlist(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         return postService.getList();
     }
 

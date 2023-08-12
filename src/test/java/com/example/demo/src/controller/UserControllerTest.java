@@ -19,12 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,7 +50,7 @@ class UserControllerTest {
     void test1() throws Exception {
 
         SignupReq signupReq = SignupReq.builder()
-                .name("김경훈")
+                .name("abc2311@abc.test")
                 .password("1234")
                 .address("서울")
                 .phoneNumber("010-1234-1234")
@@ -83,8 +80,40 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("회원 리스트 조회")
+    @DisplayName("회원 가입 에러 터지나 테스트")
     void test2() throws Exception {
+
+        SignupReq signupReq = SignupReq.builder()
+                .name("abc2311")
+                .password("1234")
+                .address("서울")
+                .phoneNumber("010-1234-1234")
+                .build();
+
+        String json = objectMapper.writeValueAsString(signupReq);
+
+        this.mockMvc.perform(post("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+//                .andDo(document("post-users",
+////                        pathParameters(
+////                                parameterWithName("userID").description("유저 ID")
+////                        ),
+//                        requestFields(
+//                                fieldWithPath("userId").description("").isIgnored(),
+//                                fieldWithPath("name").description("유저 설정 ID"),
+//                                fieldWithPath("password").description("비밀번호"),
+//                                fieldWithPath("phoneNumber").description("전화번호"),
+//                                fieldWithPath("address").description("주소")
+//                        )
+//                ));
+    }
+
+    @Test
+    @DisplayName("회원 리스트 조회")
+    void test3() throws Exception {
         // given
         Users user1 = Users.builder()
                 .name("김경훈")
