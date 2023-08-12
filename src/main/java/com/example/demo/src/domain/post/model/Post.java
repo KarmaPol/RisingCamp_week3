@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +24,8 @@ public class Post {
     @NotBlank
     private String title;
     private String content;
-    @NotBlank
-    private String itemId;
+    @NotNull
+    private Long itemId;
     private Integer price;
     private Integer quantity;
 
@@ -38,7 +38,7 @@ public class Post {
     private Users user;
 
     @Builder
-    public Post(String title, String content, String itemId, Integer quantity, Integer price) {
+    public Post(String title, String content, Long itemId, Integer quantity, Integer price) {
         this.title = title;
         this.content = content;
         this.itemId = itemId;

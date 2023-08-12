@@ -5,6 +5,7 @@ import com.example.demo.src.domain.post.req.PostReq;
 import com.example.demo.src.domain.post.resp.PostResp;
 import com.example.demo.src.exception.model.ResourceException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +20,8 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public List<PostResp> getList(){
-        return postRepository.findAll().stream()
+    public List<PostResp> getList(Pageable pageable){
+        return postRepository.findAll(pageable).stream()
                 .map(post -> PostResp.builder().postId(post.getPostId()).title(post.getTitle()).content(post.getContent())
                         .price(post.getPrice()).itemId(post.getItemId()).quantity(post.getQuantity()).userId(post.getUser().getUserId()).build())
                 .collect(Collectors.toList());

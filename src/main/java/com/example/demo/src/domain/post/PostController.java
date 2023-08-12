@@ -19,8 +19,8 @@ public class PostController {
 
     // 상품게시글 조회
     @GetMapping("/posts")
-    public List<PostResp> postlist(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
-        return postService.getList();
+    public List<PostResp> postlist(@PageableDefault(page =0, size = 10, sort = "postId", direction = Sort.Direction.DESC) Pageable pageable){
+        return postService.getList(pageable);
     }
 
     // 특정 게시글 조회

@@ -3,9 +3,9 @@ package com.example.demo.src.domain.post.req;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -14,8 +14,8 @@ public class PostReq {
     private String title;
     @NotBlank
     private String content;
-    @NotBlank
-    private String itemId;
+    @NotNull
+    private Long itemId;
     @NotBlank
     private Integer price;
     @NotBlank
@@ -24,7 +24,7 @@ public class PostReq {
     private Long userId;
 
     @Builder
-    public PostReq(String title, String content, String itemId, Integer price, Integer quantity, Long userId) {
+    public PostReq(String title, String content, Long itemId, Integer price, Integer quantity, Long userId) {
         this.title = title;
         this.content = content;
         this.itemId = itemId;

@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 @Getter
 @NoArgsConstructor
 public class PostResp {
@@ -14,13 +12,13 @@ public class PostResp {
     private Long postId;
     private String title;
     private String content;
-    private String itemId;
+    private Long itemId;
     private Integer price;
     private Integer quantity;
     private Long userId;
 
     @Builder
-    public PostResp(Long postId, String title, String content, String itemId, Integer price, Integer quantity, Long userId) {
+    public PostResp(Long postId, String title, String content, Long itemId, Integer price, Integer quantity, Long userId) {
         this.postId = postId;
         this.title = title;
         this.content = content;
