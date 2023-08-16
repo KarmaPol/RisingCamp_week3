@@ -1,26 +1,49 @@
 package com.example.demo.src.domain.user;
 
+import com.example.demo.src.domain.user.req.LoginReq;
 import com.example.demo.src.domain.user.req.SignupReq;
 import com.example.demo.src.domain.user.req.UserEditReq;
 import com.example.demo.src.domain.user.resp.UserResp;
 import com.example.demo.src.exception.model.FormException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.SecretKey;
 import javax.validation.Valid;
+import java.util.Base64;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
+    private final static String KEY = "nU9dNrQG9jfmlZ8+EfdyCaMFzzegYpCcQyufQK+Ag4Q=";
+
     // 일반 회원 가입
-    @PostMapping("/users")
+    @PostMapping("/users/signup")
     public void register(@Valid @RequestBody SignupReq signupReq){
         if(!signupReq.validateName()) throw new FormException();
+
         userService.register(signupReq);
+    }
+
+    // 로그인
+    @PostMapping("/users/signin")
+    public void signin(@RequestBody LoginReq login){
+//        Long userId = userService.login(login);
+
+        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        byte[] encodedKey = secretKey.getEncoded();
+
+        String strKey = Base64.getEncoder().encodeToString(encodedKey);
+
+        return;
     }
 
     // 전체 회원 조회

@@ -1,9 +1,11 @@
 package com.example.demo.src.domain.user;
 
 import com.example.demo.src.domain.user.model.Users;
+import com.example.demo.src.domain.user.req.LoginReq;
 import com.example.demo.src.domain.user.req.SignupReq;
 import com.example.demo.src.domain.user.req.UserEditReq;
 import com.example.demo.src.domain.user.resp.UserResp;
+import com.example.demo.src.exception.model.InvalidSigninException;
 import com.example.demo.src.exception.model.ResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -67,4 +69,10 @@ public class UserService {
         Users findUsers = userRepository.findById(userID).orElseThrow(() -> new ResourceException());
         userRepository.delete(findUsers);
     }
+
+    public Long login(LoginReq login) {
+        Users findUser = userRepository.findByNameAndPassword(login.getName(), login.getPassword()).orElseThrow(() -> new InvalidSigninException());
+        return findUser.getUserId();
+    }
+
 }
