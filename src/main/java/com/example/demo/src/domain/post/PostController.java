@@ -3,6 +3,7 @@ package com.example.demo.src.domain.post;
 import com.example.demo.src.domain.login.UserSession;
 import com.example.demo.src.domain.post.req.PostReq;
 import com.example.demo.src.domain.post.resp.PostResp;
+import com.example.demo.src.exception.model.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -33,6 +34,8 @@ public class PostController {
     // 상품게시글 작성 - seller 권한 요구
     @PostMapping("/posts")
     public void post(UserSession userSession, @Valid @RequestBody PostReq postreq){
+        if(!userSession.getUserRole().equals("SELLER")) throw new UnauthorizedException();
+
         postService.post(postreq);
     }
 
@@ -44,6 +47,8 @@ public class PostController {
     // 상품게시글 수정 - seller & 본인 게시글 권한 요구
     @PatchMapping("/posts/{postID}")
     public void patchPost(UserSession userSession, @RequestParam Long postID, @Valid @RequestBody PostReq postReq){
+        if(!userSession.getUserRole().equals("SELLER")) throw new UnauthorizedException();
+
         postService.patch(postID, postReq);
     }
 }

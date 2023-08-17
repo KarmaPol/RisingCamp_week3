@@ -1,4 +1,4 @@
-POST localhost:9000/users/signup
+POST localhost:9000/users/sign-up
 Content-Type: application/json
 
 {
@@ -6,5 +6,5 @@ Content-Type: application/json
   "password": "12345",
   "address": "123124214",
   "phoneNumber": "123124",
-  "userRole" : "NORMAL"
+  "userRole" : "SELLER"
 }

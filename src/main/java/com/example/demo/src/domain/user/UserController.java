@@ -28,7 +28,7 @@ public class UserController {
     private final AuthConfig authConfig;
 
     // 일반 회원 가입
-    @PostMapping("/users/signup")
+    @PostMapping("/users/sign-up")
     public void register(@Valid @RequestBody SignupReq signupReq){
         if(!signupReq.validateName()) throw new FormException();
 
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     // 로그인
-    @PostMapping("/users/signin")
+    @PostMapping("/users/sign-in")
     public String signin(@RequestBody LoginReq login){
         UserSession loginUser = userService.login(login);
 
