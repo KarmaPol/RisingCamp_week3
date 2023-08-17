@@ -1,11 +1,13 @@
 package com.example.demo.src.domain.user;
 
+import com.example.demo.src.config.AuthConfig;
+import com.example.demo.src.domain.login.UserSession;
 import com.example.demo.src.domain.user.req.LoginReq;
 import com.example.demo.src.domain.user.req.SignupReq;
 import com.example.demo.src.domain.user.req.UserEditReq;
 import com.example.demo.src.domain.user.resp.UserResp;
 import com.example.demo.src.exception.model.FormException;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.SecretKey;
 import javax.validation.Valid;
-import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -23,7 +25,7 @@ public class UserController {
 
     private final UserService userService;
 
-    private final static String KEY = "nU9dNrQG9jfmlZ8+EfdyCaMFzzegYpCcQyufQK+Ag4Q=";
+    private final AuthConfig authConfig;
 
     // 일반 회원 가입
     @PostMapping("/users/signup")
@@ -35,15 +37,15 @@ public class UserController {
 
     // 로그인
     @PostMapping("/users/signin")
-    public void signin(@RequestBody LoginReq login){
-//        Long userId = userService.login(login);
+    public String signin(@RequestBody LoginReq login){
+        UserSession loginUser = userService.login(login);
 
-        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        byte[] encodedKey = secretKey.getEncoded();
+        SecretKey secretKey = Keys.hmacShaKeyFor(authConfig.getJwtKey());
 
-        String strKey = Base64.getEncoder().encodeToString(encodedKey);
+        String jws = Jwts.builder().claim("id", String.valueOf(loginUser.getId())).claim("role", String.valueOf(loginUser.getUserRole()))
+                .setIssuedAt(new Date()).signWith(secretKey).compact();
 
-        return;
+        return jws;
     }
 
     // 전체 회원 조회

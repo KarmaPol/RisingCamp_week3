@@ -1,5 +1,6 @@
 package com.example.demo.src.domain.user;
 
+import com.example.demo.src.domain.login.UserSession;
 import com.example.demo.src.domain.user.model.Users;
 import com.example.demo.src.domain.user.req.LoginReq;
 import com.example.demo.src.domain.user.req.SignupReq;
@@ -27,7 +28,8 @@ public class UserService {
         Users signupUsers = Users.builder().phoneNumber(signupReq.getPhoneNumber())
                 .address(signupReq.getAddress())
                 .name(signupReq.getName())
-                .password(signupReq.getPassword()).build();
+                .password(signupReq.getPassword())
+                .userRole(signupReq.getUserRole()).build();
 
         userRepository.save(signupUsers);
     }
@@ -70,9 +72,9 @@ public class UserService {
         userRepository.delete(findUsers);
     }
 
-    public Long login(LoginReq login) {
+    public UserSession login(LoginReq login) {
         Users findUser = userRepository.findByNameAndPassword(login.getName(), login.getPassword()).orElseThrow(() -> new InvalidSigninException());
-        return findUser.getUserId();
+        return new UserSession(findUser.getUserId(), findUser.getUserRole());
     }
 
 }

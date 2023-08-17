@@ -1,0 +1,12 @@
+POST localhost:9000/posts
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJyb2xlIjoiTk9STUFMIiwiaWF0IjoxNjkyMjY0NzE1fQ.QE1Rq0sCaZ8BirL6s8jSBaxTL2q7c7t50F5TpbTZtA0
+
+{
+  "title": "hi",
+  "content": "hi2",
+  "itemId": "1",
+  "userId": "1",
+  "price": "1000",
+  "quantity": "100"
+}

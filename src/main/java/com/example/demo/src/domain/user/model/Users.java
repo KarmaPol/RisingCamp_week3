@@ -27,17 +27,20 @@ public class Users {
     private String phoneNumber;
     @Column
     private String address;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @BatchSize(size = 100)
     @OneToMany(mappedBy = "user")
     private List<Orders> order = new ArrayList<>();
 
     @Builder
-    public Users(String name, String password, String phoneNumber, String address) {
+    public Users(String name, String password, String phoneNumber, String address, UserRole userRole) {
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.userRole = userRole;
     }
 
     public void changeUser(UserEditReq userEditReq){
