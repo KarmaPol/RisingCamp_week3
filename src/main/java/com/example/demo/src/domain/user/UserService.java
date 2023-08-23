@@ -1,5 +1,6 @@
 package com.example.demo.src.domain.user;
 
+import com.example.demo.src.domain.login.UserSession;
 import com.example.demo.src.domain.user.model.Users;
 import com.example.demo.src.domain.user.req.LoginReq;
 import com.example.demo.src.domain.user.req.SignupReq;
@@ -8,6 +9,7 @@ import com.example.demo.src.domain.user.resp.UserResp;
 import com.example.demo.src.exception.model.InvalidSigninException;
 import com.example.demo.src.exception.model.ResourceException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +23,17 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private static final SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
+
     // 일반 회원가입
     public void register(SignupReq signupReq){
+        String encodedpasswrod = sCryptPasswordEncoder.encode(signupReq.getPassword());
 
         Users signupUsers = Users.builder().phoneNumber(signupReq.getPhoneNumber())
                 .address(signupReq.getAddress())
                 .name(signupReq.getName())
-                .password(signupReq.getPassword()).build();
+                .password(encodedpasswrod)
+                .userRole(signupReq.getUserRole()).build();
 
         userRepository.save(signupUsers);
     }
@@ -70,9 +76,11 @@ public class UserService {
         userRepository.delete(findUsers);
     }
 
-    public Long login(LoginReq login) {
-        Users findUser = userRepository.findByNameAndPassword(login.getName(), login.getPassword()).orElseThrow(() -> new InvalidSigninException());
-        return findUser.getUserId();
-    }
+    public UserSession login(LoginReq login) {
+        Users findUser = userRepository.findByName(login.getName()).orElseThrow(() -> new InvalidSigninException());
 
+        if(!sCryptPasswordEncoder.matches(login.getPassword(), findUser.getPassword())) throw new InvalidSigninException();
+
+        return new UserSession(findUser.getUserId(), findUser.getUserRole());
+    }
 }

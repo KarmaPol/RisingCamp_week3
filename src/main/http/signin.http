@@ -1,7 +1,7 @@
-POST localhost:9000/users/signin
+POST localhost:9000/users/sign-in
 Content-Type: application/json
 
 {
   "name": "kim@gmail.com",
-  "password": "1234"
+  "password": "12345"
 }

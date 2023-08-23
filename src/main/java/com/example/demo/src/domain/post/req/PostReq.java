@@ -16,11 +16,9 @@ public class PostReq {
     private String content;
     @NotNull
     private Long itemId;
-    @NotBlank
     private Integer price;
-    @NotBlank
     private Integer quantity;
-    @NotBlank
+    @NotNull
     private Long userId;
 
     @Builder

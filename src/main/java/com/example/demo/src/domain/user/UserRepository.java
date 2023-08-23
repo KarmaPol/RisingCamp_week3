@@ -9,4 +9,5 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     public Long countUserByName(String name);
 
     public Optional<Users> findByNameAndPassword(String name, String password);
+    public Optional<Users> findByName(String name);
 }

@@ -1,9 +1,15 @@
 package com.example.demo.src.domain.login;
 
-public class UserSession {
-    public final Long id;
+import com.example.demo.src.domain.user.model.UserRole;
+import lombok.Getter;
 
-    public UserSession(Long id) {
+@Getter
+public class UserSession {
+    private Long id;
+    private UserRole userRole;
+
+    public UserSession(Long id, UserRole userRole) {
         this.id = id;
+        this.userRole = userRole;
     }
 }

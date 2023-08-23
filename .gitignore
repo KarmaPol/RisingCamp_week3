@@ -2,3 +2,5 @@
 build/
 logs/
 out/
+
+.idea/dbnavigator.xml
