@@ -58,7 +58,7 @@ class UserControllerTest {
 
         String json = objectMapper.writeValueAsString(signupReq);
 
-        this.mockMvc.perform(post("/users")
+        this.mockMvc.perform(post("/users/sign-up")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andDo(print())
@@ -92,7 +92,7 @@ class UserControllerTest {
 
         String json = objectMapper.writeValueAsString(signupReq);
 
-        this.mockMvc.perform(post("/users")
+        this.mockMvc.perform(post("/users/sign-up")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andDo(print())

@@ -3,4 +3,21 @@ build/
 logs/
 out/
 
-.idea/dbnavigator.xml
+# 인텔리제이 설정파일
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# 빌드 출력 파일
+target/
+build/
+out/
+
+# 설정 디렉토리
+.idea/
+
+# 로그 및 임시 파일
+logs/
+*.log
+*.tmp
