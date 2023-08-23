@@ -45,6 +45,11 @@ class UserControllerTest {
                 .build();
     }
 
+    @BeforeEach
+    void clean(){
+        userRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("회원 가입 테스트")
     void test1() throws Exception {
