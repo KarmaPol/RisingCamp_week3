@@ -21,3 +21,6 @@ out/
 logs/
 *.log
 *.tmp
+
+# DB 설정 파일
+application-real-db.yml

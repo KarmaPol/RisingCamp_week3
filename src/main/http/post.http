@@ -1,6 +1,6 @@
 POST localhost:9000/posts
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJyb2xlIjoiU0VMTEVSIiwiaWF0IjoxNjkyMjg3NDkxfQ.0acAc0VCTvdqMZCUaE2alHYyYLPnWMgbsLBcL5_2hog
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJyb2xlIjoiU0VMTEVSIiwiaWF0IjoxNjkyODA3MTY4fQ.t994z2dyqWM71Vf0qdPN8XI5Bt1iMvf0skbivqVHCNY
 
 {
   "title": "hi",

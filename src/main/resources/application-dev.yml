@@ -1,0 +1,31 @@
+server:
+  port: 9000
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:h2:mem:demo
+    username: sa # username
+    password:  # password # mysql 8버전
+    # driver-class-name: com.mysql.jdbc.Driver # mysql 5버전
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: false
+
+demo:
+  jwt-key: nU9dNrQG9jfmlZ8+EfdyCaMFzzegYpCcQyufQK+Ag4Q=

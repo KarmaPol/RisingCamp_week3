@@ -13,7 +13,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="353f2f56-a4c6-4846-85c8-af8225309cac">
-      <console name="Connection" type="STANDARD" schema="demo" session="Main" />
+      <console name="Connection" type="STANDARD" schema="demo" session="Main"><![CDATA[select * from post]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -24,6 +24,7 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="353f2f56-a4c6-4846-85c8-af8225309cac" dataset="demo.orders" active-filter-id="" />
+    <filter-actions connection-id="353f2f56-a4c6-4846-85c8-af8225309cac" dataset="demo.users" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -47,7 +48,7 @@
           <url-type value="DATABASE" />
           <host value="risingcamp-demo-db.ccxcnvg3ji7r.ap-northeast-2.rds.amazonaws.com" />
           <port value="3306" />
-          <database value="mysql" />
+          <database value="demo" />
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER_PASSWORD" />

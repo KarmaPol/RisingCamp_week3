@@ -3,6 +3,7 @@ package com.example.demo.src.domain.post;
 import com.example.demo.src.domain.login.UserSession;
 import com.example.demo.src.domain.post.req.PostReq;
 import com.example.demo.src.domain.post.resp.PostResp;
+import com.example.demo.src.domain.user.model.UserRole;
 import com.example.demo.src.exception.model.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,7 @@ public class PostController {
     // 상품게시글 작성 - seller 권한 요구
     @PostMapping("/posts")
     public void post(UserSession userSession, @Valid @RequestBody PostReq postreq){
-        if(!userSession.getUserRole().equals("SELLER")) throw new UnauthorizedException();
+        if(!userSession.getUserRole().equals(UserRole.SELLER)) throw new UnauthorizedException();
 
         postService.post(postreq);
     }

@@ -2,7 +2,7 @@ POST localhost:9000/users/sign-up
 Content-Type: application/json
 
 {
-  "name": "kim@gmail.com",
+  "name": "kim2@gmail.com",
   "password": "12345",
   "address": "123124214",
   "phoneNumber": "123124",

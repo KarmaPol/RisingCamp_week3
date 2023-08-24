@@ -7,6 +7,7 @@ import com.example.demo.src.domain.user.req.SignupReq;
 import com.example.demo.src.domain.user.req.UserEditReq;
 import com.example.demo.src.domain.user.resp.UserResp;
 import com.example.demo.src.exception.model.InvalidSigninException;
+import com.example.demo.src.exception.model.NameDuplicateException;
 import com.example.demo.src.exception.model.ResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
@@ -27,6 +28,9 @@ public class UserService {
 
     // 일반 회원가입
     public void register(SignupReq signupReq){
+
+        if(!duplicateValidation(signupReq.getName())) throw new NameDuplicateException();
+
         String encodedpasswrod = sCryptPasswordEncoder.encode(signupReq.getPassword());
 
         Users signupUsers = Users.builder().phoneNumber(signupReq.getPhoneNumber())
