@@ -2,6 +2,7 @@ package com.example.demo.src.controller;
 
 import com.example.demo.src.domain.user.UserRepository;
 import com.example.demo.src.domain.user.model.Users;
+import com.example.demo.src.domain.user.req.LoginReq;
 import com.example.demo.src.domain.user.req.SignupReq;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
@@ -15,8 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
@@ -37,6 +40,8 @@ class UserControllerTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    private static final SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
 
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
@@ -163,5 +168,20 @@ class UserControllerTest {
 //                                fieldWithPath("address").description("주소")
 //                        )
 //                ));
+    }
+
+    @Test
+    @DisplayName("로그인 테스트")
+    @Transactional
+    void test4() throws Exception {
+
+        LoginReq loginReq = LoginReq.builder().name("kim@gmail.com").password("12345").build();
+
+        String json = objectMapper.writeValueAsString(loginReq);
+
+        this.mockMvc.perform(post("/users/sign-in")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andDo(print());
     }
 }

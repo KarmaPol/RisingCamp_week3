@@ -3,7 +3,7 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJyb2xlIjoiU0VMTEVSIiwiaWF0IjoxNjkyODA3MTY4fQ.t994z2dyqWM71Vf0qdPN8XI5Bt1iMvf0skbivqVHCNY
 
 {
-  "title": "hi",
+  "title": "test",
   "content": "hi2",
   "itemId": "1",
   "userId": "1",
