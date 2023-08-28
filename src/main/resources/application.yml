@@ -7,3 +7,5 @@ spring:
       "production":
         - real
         - real-db
+      "dev":
+        - dev
